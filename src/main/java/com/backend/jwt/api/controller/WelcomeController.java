@@ -26,7 +26,7 @@ public class WelcomeController {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
-    @GetMapping("/")
+    @GetMapping("/welcome")
     public String welcome() {
         return "Welcome to EcoChallenge !!";
     }
