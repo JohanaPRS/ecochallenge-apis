@@ -30,7 +30,7 @@ public class Swagger3Config {
                 .build();
         parameters.add(parameterBuilder.build());
 
-        return new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.OAS_30)
                 // Sets the api's meta information as included in the json ResourceListing response.
                 .apiInfo(apiInfo())
                 // Initiates a builder for api selection.
