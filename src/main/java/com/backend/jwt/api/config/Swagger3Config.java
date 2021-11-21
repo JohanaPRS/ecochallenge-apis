@@ -37,7 +37,7 @@ public class Swagger3Config {
                 // Initiates a builder for api selection.
                 .select()
                 // Any RequestHandler satisfies this condition
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.backend.jwt.api.controller"))
                 // Any path satisfies this condition
                 .paths(PathSelectors.any())
                 .build()
