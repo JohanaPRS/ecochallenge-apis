@@ -32,4 +32,8 @@ public class DesafioService {
         return repo.findById(id);
     }
 
+    public  List<Desafio> getDesafiosByStatus(Boolean estado_desafio){
+        return repo.findByStatus(estado_desafio);
+    }
+
 }

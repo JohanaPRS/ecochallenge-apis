@@ -39,6 +39,13 @@ public class DesafioController {
     }
 
     @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com"})
+    @RequestMapping(path = "/desafios/{estado_desafio}", method = RequestMethod.GET)
+    public List<Desafio> get(@PathVariable("estado_desafio")  Boolean estado_desafio) {
+            List<Desafio> desafios = service.getDesafiosByStatus(estado_desafio);
+            return desafios;
+    }
+
+    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com"})
     @PostMapping("/desafios")
     public ResponseEntity<Desafio>  add(@RequestBody Desafio desafio) {
         service.save(desafio);
