@@ -21,13 +21,13 @@ public class DesafioController {
     @Autowired
     private DesafioService service;
 
-    @CrossOrigin(origins= {"http://localhost:3000"})
+    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com"})
     @GetMapping("/desafios")
     public List<Desafio> list() {
         return service.listAll();
     }
 
-    @CrossOrigin(origins= {"http://localhost:3000"})
+    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com"})
     @RequestMapping(path = "/desafios/{id}", method = RequestMethod.GET)
     public ResponseEntity<Desafio> get(@PathVariable("id")  int id) {
         try {
@@ -38,14 +38,14 @@ public class DesafioController {
         }
     }
 
-    @CrossOrigin(origins= {"http://localhost:3000"})
+    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com"})
     @PostMapping("/desafios")
     public ResponseEntity<Desafio>  add(@RequestBody Desafio desafio) {
         service.save(desafio);
         return new ResponseEntity<Desafio>(desafio, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins= {"http://localhost:3000"})
+    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com"})
     @RequestMapping(path = "/desafios/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> update(@RequestBody Desafio desafio, @PathVariable("id") int id) {
         Desafio desafioOptional = service.getASingleDesafio(id);
@@ -60,7 +60,7 @@ public class DesafioController {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @CrossOrigin(origins= {"http://localhost:3000"})
+    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com"})
     @RequestMapping(path = "/desafios/status/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateStatus(@RequestBody Desafio desafio, @PathVariable("id") int id) {
         Desafio desafioOptional = service.getASingleDesafio(id);
