@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.*;
 import org.springframework.http.*;
 
+import javax.websocket.server.PathParam;
+
 @RestController
 public class DesafioController {
 
@@ -39,7 +41,7 @@ public class DesafioController {
     }
 
     @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com"})
-    @RequestMapping(path = "/desafios/{status}", method = RequestMethod.GET)
+    @RequestMapping(path = "/desafios/status/{status}", method = RequestMethod.GET)
     public List<Desafio> get(@PathVariable("status")  Boolean status) {
             List<Desafio> desafios = service.getDesafiosByStatus(status);
             return desafios;

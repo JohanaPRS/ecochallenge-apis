@@ -29,7 +29,7 @@ public class DesafioService {
     }
 
     public Desafio getASingleDesafio(int id){
-        return repo.findById(id);
+        return repo.findOne(id);
     }
 
     public  List<Desafio> getDesafiosByStatus(Boolean status){
