@@ -39,9 +39,9 @@ public class DesafioController {
     }
 
     @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com"})
-    @RequestMapping(path = "/desafios/{estado_desafio}", method = RequestMethod.GET)
-    public List<Desafio> get(@PathVariable("estado_desafio")  Boolean estado_desafio) {
-            List<Desafio> desafios = service.getDesafiosByStatus(estado_desafio);
+    @RequestMapping(path = "/desafios/{status}", method = RequestMethod.GET)
+    public List<Desafio> get(@PathVariable("status")  Boolean status) {
+            List<Desafio> desafios = service.getDesafiosByStatus(status);
             return desafios;
     }
 

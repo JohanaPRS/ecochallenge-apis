@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface DesafioRepository extends JpaRepository<Desafio,Integer> {
     Desafio findById(int id);
-    List<Desafio> findByStatus(Boolean estado_desafio);
+    List<Desafio> findByStatus(Boolean status);
 
 }
