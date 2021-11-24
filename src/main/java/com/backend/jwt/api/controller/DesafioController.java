@@ -23,13 +23,13 @@ public class DesafioController {
     @Autowired
     private DesafioService service;
 
-    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com"})
+    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com", "http://localhost:3000"})
     @GetMapping("/desafios")
     public List<Desafio> list() {
         return service.listAll();
     }
 
-    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com"})
+    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com", "http://localhost:3000"})
     @RequestMapping(path = "/desafios/{id}", method = RequestMethod.GET)
     public ResponseEntity<Desafio> get(@PathVariable("id")  int id) {
         try {
@@ -40,21 +40,21 @@ public class DesafioController {
         }
     }
 
-    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com"})
+    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com", "http://localhost:3000"})
     @RequestMapping(path = "/desafios/status/{status}", method = RequestMethod.GET)
     public List<Desafio> get(@PathVariable("status")  Boolean status) {
             List<Desafio> desafios = service.getDesafiosByStatus(status);
             return desafios;
     }
 
-    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com"})
+    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com", "http://localhost:3000"})
     @PostMapping("/desafios")
     public ResponseEntity<Desafio>  add(@RequestBody Desafio desafio) {
         service.save(desafio);
         return new ResponseEntity<Desafio>(desafio, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com"})
+    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com", "http://localhost:3000"})
     @RequestMapping(path = "/desafios/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> update(@RequestBody Desafio desafio, @PathVariable("id") int id) {
         Desafio desafioOptional = service.getASingleDesafio(id);
@@ -69,7 +69,7 @@ public class DesafioController {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com"})
+    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com", "http://localhost:3000"})
     @RequestMapping(path = "/desafios/status/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateStatus(@RequestBody Desafio desafio, @PathVariable("id") int id) {
         Desafio desafioOptional = service.getASingleDesafio(id);
