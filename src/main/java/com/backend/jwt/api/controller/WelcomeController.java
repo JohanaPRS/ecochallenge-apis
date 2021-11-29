@@ -30,7 +30,7 @@ public class WelcomeController {
     public String welcome() {
         return "Welcome to EcoChallenge !!";
     }
-    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com"})
+    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com", "http://localhost:3000"})
     @PostMapping("/user/authenticate")
     public ResponseEntity<?> generateToken(@RequestBody AuthRequest authRequest) throws Exception {
         try {
@@ -45,7 +45,7 @@ public class WelcomeController {
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
-    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com"})
+    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com", "http://localhost:3000"})
     @PostMapping(value = "/user/register")
     public ResponseEntity<?> saveUser(@RequestBody User user) throws Exception {
         return ResponseEntity.ok(userDetailsService.save(user));

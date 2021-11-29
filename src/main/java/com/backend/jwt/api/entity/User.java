@@ -40,6 +40,12 @@ public class User {
     @Column(name = "id_rol", columnDefinition = "INT(1) default '1'")
     private int id_rol = 1;
 
+    @Column(name = "id_nivel", columnDefinition = "INT(1) default '1'")
+    private int id_nivel = 1;
+
+    @Column(name = "puntaje")
+    private int puntaje;
+
     public User(String userName, String apellido_usuario, int edad_usuario, String email, String password) {
         this.userName = userName;
         this.apellido_usuario = apellido_usuario;
