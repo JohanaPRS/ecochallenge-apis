@@ -1,5 +1,6 @@
 package com.backend.jwt.api.service;
 
+import com.backend.jwt.api.entity.Desafio;
 import com.backend.jwt.api.entity.User;
 import com.backend.jwt.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -31,4 +33,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         newUser.setPassword((user.getPassword()));
         return repository.save(newUser);
     }
+
+    public User userByUserName(String userName){
+        return repository.findByUserName(userName);
+    }
+
 }

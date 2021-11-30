@@ -1,10 +1,8 @@
 package com.backend.jwt.api.controller;
 
-import com.backend.jwt.api.entity.AuthRequest;
-import com.backend.jwt.api.entity.User;
+import com.backend.jwt.api.entity.*;
 import com.backend.jwt.api.service.CustomUserDetailsService;
 import com.backend.jwt.api.util.JwtUtil;
-import com.backend.jwt.api.entity.JwtResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.CustomAutowireConfigurer;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +12,8 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import com.backend.jwt.api.entity.JwtResponse;
+
+import java.util.List;
 
 @RestController
 public class WelcomeController {
@@ -49,6 +49,13 @@ public class WelcomeController {
     @PostMapping(value = "/user/register")
     public ResponseEntity<?> saveUser(@RequestBody User user) throws Exception {
         return ResponseEntity.ok(userDetailsService.save(user));
+    }
+
+
+    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com", "http://localhost:3000"})
+    @RequestMapping(path = "/user/{userName}", method = RequestMethod.GET)
+    public ResponseEntity<?>  getByUserName(@PathVariable("userName")  String userName) {
+        return ResponseEntity.ok(userDetailsService.userByUserName(userName));
     }
 
 }
