@@ -43,7 +43,7 @@ public class User {
     @Column(name = "id_nivel", columnDefinition = "INT(1) default '1'")
     private int id_nivel = 1;
 
-    @Column(name = "puntaje")
+    @Column(name = "puntaje", nullable = false)
     private int puntaje;
 
     public User(String userName, String apellido_usuario, int edad_usuario, String email, String password) {
