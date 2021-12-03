@@ -23,7 +23,7 @@ public class OdsService {
         return repo.findAll();
     }
 
-    public List<Object> listAllMess() {
+    public List<Ods> listAllMess() {
         return repo.findMessages();
     }
 

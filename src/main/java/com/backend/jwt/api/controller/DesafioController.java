@@ -110,17 +110,18 @@ public class DesafioController {
     ///terminar desafío:
 
     @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com", "http://localhost:3000"})
-    @PostMapping("/desafios/terminar/{nombre_usuario}/{puntos_desafio}")
-    public List<Object>  terminar(@RequestBody Score score, @PathVariable("nombre_usuario") String nombre_usuario,  @PathVariable("puntos_desafio") int puntos_desafio) {
-        scoreserv.save(score); // registro el nuevo score obtenido por el user - score con id desafio + id_usuario + puntos desafio
+    @PostMapping("/desafios/terminar/{id_desafio}/{nombre_usuario}/{puntos_desafio}")
+    public List<Ods>  terminar(@PathVariable("id_desafio") int id_desafio, @PathVariable("nombre_usuario") String nombre_usuario,  @PathVariable("puntos_desafio") int puntos_desafio) {
         User user = userserv.userByUserName(nombre_usuario);
         int id_usuario = user.getId();
+        Score score = new Score (id_desafio, id_usuario, puntos_desafio);
+        scoreserv.save(score); // registro el nuevo score obtenido por el user - score con id desafio + id_usuario + puntos desafio
         int puntaje_total = scoreserv.getUserScore(id_usuario); // obtengo el puntaje total del user
         Nivel nivel = nivelserv.getNivelByRango(puntaje_total, puntaje_total);
         int id_nivel = nivel.getId();
         Ranking ranking = new Ranking (id_usuario, nombre_usuario, id_nivel,puntaje_total);
         rankingserv.save(ranking); // actualizo esto en ranking
-        List<Object> ods_mensajes = odsserv.listAllMess();  // devuelve los mensajes de ODS
+        List<Ods> ods_mensajes = odsserv.listAllMess();  // devuelve los mensajes de ODS
         return ods_mensajes;
     }
 }

@@ -20,4 +20,7 @@ public class Ods {
     @Column(name = "mensaje_ods", nullable = false)
     private String mensaje_ods;
 
+    public Ods(String mensaje_ods) {
+        this.mensaje_ods = mensaje_ods;
+    }
 }

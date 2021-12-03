@@ -13,6 +13,6 @@ public interface OdsRepository extends JpaRepository<Ods,Integer> {
     Ods findById(@Param("id") int id);
 
     @Query(value = "SELECT mensaje_ods FROM ods", nativeQuery = true)
-    List<Object> findMessages();
+    List<Ods> findMessages();
 }
 
