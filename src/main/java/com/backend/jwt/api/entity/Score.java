@@ -26,5 +26,9 @@ public class Score {
     @Column(name = "puntos", nullable = false)
     private int puntos;
 
-
+    public Score(int id_desafio, int id_usuario, int puntos) {
+        this.id_desafio = id_desafio;
+        this.id_usuario = id_usuario;
+        this.puntos = puntos;
+    }
 }
