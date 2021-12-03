@@ -17,18 +17,28 @@ public class Ranking {
     @Column(name = "id_ranking", nullable = false)
     private int id;
 
-    //@Column(name = "usuario", nullable = false)
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario",referencedColumnName="id_usuario")
-    private User usuario;
+    @Column(name = "id_usuario", nullable = false)
+    private int id_usuario;
 
-    //@Column(name = "nivel", nullable = false)
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_nivel",referencedColumnName="id_nivel")
-    private Nivel nivel;
+    @Column(name = "nombre_usuario", nullable = false)
+    private String nombre_usuario;
+
+    @Column(name = "id_nivel", nullable = false)
+    private int id_nivel;
 
     @Column(name = "puntaje_total", nullable = false)
     private int puntaje_total;
 
+    public Ranking(int id_usuario, String nombre_usuario, int id_nivel, int puntaje_total) {
+        this.id_usuario = id_usuario;
+        this.nombre_usuario = nombre_usuario;
+        this.id_nivel = id_nivel;
+        this.puntaje_total = puntaje_total;
+    }
 
+    public Ranking(int id_usuario, String nombre_usuario, int puntaje_total) {
+        this.id_usuario = id_usuario;
+        this.nombre_usuario = nombre_usuario;
+        this.puntaje_total = puntaje_total;
+    }
 }

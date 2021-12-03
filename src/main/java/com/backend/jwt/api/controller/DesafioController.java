@@ -1,7 +1,7 @@
 package com.backend.jwt.api.controller;
 
-import com.backend.jwt.api.entity.Desafio;
-import com.backend.jwt.api.service.DesafioService;
+import com.backend.jwt.api.entity.*;
+import com.backend.jwt.api.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.CustomAutowireConfigurer;
 import org.springframework.http.ResponseEntity;
@@ -9,8 +9,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import com.backend.jwt.api.entity.JwtResponse;
+
 import java.util.HashMap;
 import java.util.*;
 import org.springframework.http.*;
@@ -22,6 +23,21 @@ public class DesafioController {
 
     @Autowired
     private DesafioService service;
+
+    @Autowired
+    private ScoreService scoreserv;
+
+    @Autowired
+    private RankingService rankingserv;
+
+    @Autowired
+    private NivelService nivelserv;
+
+    @Autowired
+    private OdsService odsserv;
+
+    @Autowired
+    private CustomUserDetailsService userserv;
 
     @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com", "http://localhost:3000"})
     @GetMapping("/desafios")
@@ -89,5 +105,22 @@ public class DesafioController {
         }else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    ///terminar desafío:
+
+    @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com", "http://localhost:3000"})
+    @PostMapping("/desafios/terminar/{nombre_usuario}/{puntos_desafio}")
+    public List<Object>  terminar(@RequestBody Score score, @PathVariable("nombre_usuario") String nombre_usuario,  @PathVariable("puntos_desafio") int puntos_desafio) {
+        scoreserv.save(score); // registro el nuevo score obtenido por el user - score con id desafio + id_usuario + puntos desafio
+        User user = userserv.userByUserName(nombre_usuario);
+        int id_usuario = user.getId();
+        int puntaje_total = scoreserv.getUserScore(id_usuario); // obtengo el puntaje total del user
+        Nivel nivel = nivelserv.getNivelByRango(puntaje_total, puntaje_total);
+        int id_nivel = nivel.getId();
+        Ranking ranking = new Ranking (id_usuario, nombre_usuario, id_nivel,puntaje_total);
+        rankingserv.save(ranking); // actualizo esto en ranking
+        List<Object> ods_mensajes = odsserv.listAllMess();  // devuelve los mensajes de ODS
+        return ods_mensajes;
     }
 }
