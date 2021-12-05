@@ -123,6 +123,7 @@ public class DesafioController {
             rankingserv.save(nuevo);
         }
         //Actualizo tabla users
+        user.setId_nivel(id_nivel);
         user.setPuntaje(puntaje_total);
         userserv.saveUpdate(user);
 
