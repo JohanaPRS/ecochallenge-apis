@@ -39,6 +39,20 @@ public class CustomUserDetailsService implements UserDetailsService {
         return repository.save(newUser);
     }
 
+    public User saveUpdate(User editedUser) {
+        editedUser.setUserName(editedUser.getUserName());
+        editedUser.setApellido_usuario(editedUser.getApellido_usuario());
+        editedUser.setEdad_usuario(editedUser.getEdad_usuario());
+        editedUser.setEmail(editedUser.getEmail());
+        editedUser.setPassword(editedUser.getPassword());
+        editedUser.setEstado_usuario(editedUser.getEstado_usuario());
+        editedUser.setPuntaje(editedUser.getPuntaje());
+        editedUser.setId_rol(editedUser.getId_rol());
+        editedUser.setId_nivel(editedUser.getId_nivel());
+
+        return repository.save(editedUser);
+    }
+
     public User userByUserName(String userName){
         return repository.findByUserName(userName);
     }

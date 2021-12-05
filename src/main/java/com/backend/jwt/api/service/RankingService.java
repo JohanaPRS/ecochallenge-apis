@@ -20,6 +20,10 @@ public class RankingService {
         return repo.findRanking(id);
     }
 
+    public Ranking getByUser(int id_usuario){
+        return repo.findByUser(id_usuario);
+    }
+
     public List<Ranking> listAll() {
         return repo.findAll();
     }
