@@ -2,24 +2,11 @@ package com.backend.jwt.api.controller;
 
 import com.backend.jwt.api.entity.*;
 import com.backend.jwt.api.service.*;
-import io.swagger.models.Response;
-import jdk.internal.org.jline.utils.Status;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.CustomAutowireConfigurer;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
-
-import java.util.HashMap;
 import java.util.*;
 import org.springframework.http.*;
-
-import javax.websocket.server.PathParam;
 
 @RestController
 public class DesafioController {
