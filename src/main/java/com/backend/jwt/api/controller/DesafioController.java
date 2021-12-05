@@ -2,6 +2,8 @@ package com.backend.jwt.api.controller;
 
 import com.backend.jwt.api.entity.*;
 import com.backend.jwt.api.service.*;
+import io.swagger.models.Response;
+import jdk.internal.org.jline.utils.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.CustomAutowireConfigurer;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.HashMap;
 import java.util.*;
@@ -111,7 +114,7 @@ public class DesafioController {
 
     @CrossOrigin(origins= {"https://ecochallenge-web-admin.herokuapp.com", "http://localhost:3000"})
     @PostMapping("/desafios/terminar/{id_desafio}/{nombre_usuario}/{puntos_desafio}")
-    public List<Ods>  terminar(@PathVariable("id_desafio") int id_desafio, @PathVariable("nombre_usuario") String nombre_usuario,  @PathVariable("puntos_desafio") int puntos_desafio) {
+    public ResponseEntity<?>   terminar(@PathVariable("id_desafio") int id_desafio, @PathVariable("nombre_usuario") String nombre_usuario,  @PathVariable("puntos_desafio") int puntos_desafio) {
         User user = userserv.userByUserName(nombre_usuario);
         int id_usuario = user.getId();
         Score score = new Score (id_desafio, id_usuario, puntos_desafio);
@@ -119,9 +122,23 @@ public class DesafioController {
         int puntaje_total = scoreserv.getUserScore(id_usuario); // obtengo el puntaje total del user
         Nivel nivel = nivelserv.getNivelByRango(puntaje_total, puntaje_total);
         int id_nivel = nivel.getId();
-        Ranking ranking = new Ranking (id_usuario, nombre_usuario, id_nivel,puntaje_total);
-        rankingserv.save(ranking); // actualizo esto en ranking
-        List<Ods> ods_mensajes = odsserv.listAllMess();  // devuelve los mensajes de ODS
-        return ods_mensajes;
+        // actualizo esto en ranking
+        Ranking ranking = rankingserv.getByUser(id_usuario);
+        if(ranking != null){
+            ranking.setId(ranking.getId());
+            ranking.setId_usuario(ranking.getId_usuario());
+            ranking.setNombre_usuario(ranking.getNombre_usuario());
+            ranking.setId_nivel(id_nivel);
+            ranking.setPuntaje_total(puntaje_total);
+            rankingserv.save(ranking);
+        }else{
+           Ranking nuevo = new Ranking (id_usuario, nombre_usuario, id_nivel,puntaje_total);
+            rankingserv.save(nuevo);
+        }
+        //Actualizo tabla users
+        user.setPuntaje(puntaje_total);
+        userserv.saveUpdate(user);
+
+        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 }

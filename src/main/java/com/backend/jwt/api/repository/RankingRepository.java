@@ -21,4 +21,7 @@ public interface RankingRepository extends JpaRepository<Ranking,Integer> {
     @Query("SELECT s.id_usuario, s.nombre_usuario, s.puntaje_total FROM Ranking s GROUP BY s.id_usuario ORDER BY s.puntaje_total DESC")
     List<Object> findFirst();
 
+    @Query("SELECT h FROM Ranking h WHERE h.id_usuario = :id_usuario")
+    Ranking findByUser(@Param("id_usuario") int id_usuario);
+
 }
